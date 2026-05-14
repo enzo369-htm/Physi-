@@ -394,33 +394,130 @@
   }
   .footer-ig:hover { color: var(--crema); }
 
-  /* Cartel muestra — bajo footer */
-  .demo-banner {
-    background: var(--verde);
-    padding: 2rem 4rem 2.65rem;
-    text-align: center;
-    border-top: 1px solid rgba(247,242,234,0.1);
+  /* Cartel proyecto — bajo footer (maqueta / propuesta) */
+  .demo-sheet {
+    background: #cfd4c9;
+    padding: clamp(2rem, 5vw, 3.75rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 8vw, 5rem);
+    border-top: 1px solid rgba(26, 61, 43, 0.12);
   }
-  .demo-banner__label {
-    margin: 0 0 0.7rem;
+  .demo-sheet__panel {
+    max-width: 46rem;
+    margin: 0 auto;
+    background: #0d0e0c;
+    color: rgba(247, 242, 234, 0.92);
+    border-radius: 18px;
+    padding: clamp(1.85rem, 4.5vw, 2.65rem) clamp(1.4rem, 4vw, 2.65rem)
+      clamp(2.15rem, 4.5vw, 2.75rem);
+    box-shadow:
+      0 24px 48px rgba(13, 14, 12, 0.35),
+      0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  }
+  .demo-sheet__masthead {
+    margin: 0 0 1.75rem;
+    padding-bottom: 1.35rem;
+    border-bottom: 1px solid rgba(247, 242, 234, 0.12);
+  }
+  .demo-sheet__masthead h2 {
+    margin: 0;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(247, 242, 234, 0.86);
+  }
+  .demo-sheet__section + .demo-sheet__section {
+    margin-top: 1.85rem;
+  }
+  .demo-sheet__section h3 {
+    margin: 0 0 0.75rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
     letter-spacing: 0.26em;
     text-transform: uppercase;
-    color: var(--tierra);
+    color: rgba(247, 242, 234, 0.45);
+    line-height: 1.4;
   }
-  .demo-banner__text {
-    margin: 0 auto;
-    max-width: 42rem;
-    font-size: 0.875rem;
-    line-height: 1.68;
-    color: rgba(247,242,234,0.9);
+  .demo-sheet__section p {
+    margin: 0 0 0.85rem;
+    font-size: 0.895rem;
+    line-height: 1.74;
     font-weight: 300;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.015em;
+    color: rgba(247, 242, 234, 0.9);
   }
-  .demo-banner__text strong {
+  .demo-sheet__section p:last-child {
+    margin-bottom: 0;
+  }
+  .demo-sheet__list {
+    margin: 0;
+    padding: 0 0 0 1.15rem;
+    font-size: 0.88rem;
+    line-height: 1.76;
+    font-weight: 300;
+    letter-spacing: 0.015em;
+    color: rgba(247, 242, 234, 0.86);
+  }
+  .demo-sheet__list li {
+    margin-bottom: 0.55rem;
+    padding-left: 0.2rem;
+  }
+  .demo-sheet__list li:last-child {
+    margin-bottom: 0;
+  }
+  .demo-sheet__intro {
+    margin: 0 0 1rem;
+    font-size: 0.88rem;
+    line-height: 1.72;
+    font-weight: 300;
+    color: rgba(247, 242, 234, 0.86);
+  }
+  .demo-sheet__cta-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 0.35rem;
+  }
+  .demo-sheet__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.82rem 1.65rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.74rem;
     font-weight: 500;
-    color: var(--crema-light);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--texto);
+    background: #f7f2ea;
+    border-radius: 999px;
+    border: none;
+    transition: background 0.25s, color 0.25s, transform 0.2s ease;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
+  .demo-sheet__cta:hover {
+    background: #fffefb;
+    color: #080808;
+    transform: translateY(-1px);
+  }
+  .demo-sheet__section strong {
+    font-weight: 500;
+    color: rgba(247, 242, 234, 0.98);
+  }
+  .demo-sheet__panel a {
+    color: #c9b08a;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  .demo-sheet__panel a:hover {
+    color: #ede5d9;
+  }
+  .demo-sheet__footnote {
+    margin-top: 1rem !important;
+    opacity: 0.88;
   }
 
   /* ANIMATIONS */
@@ -734,11 +831,14 @@
       flex: 0 0 min(90vw, 440px);
       width: min(90vw, 440px);
     }
-    .demo-banner {
-      padding: 1.65rem 1.35rem 2rem;
+    .demo-sheet__panel {
+      border-radius: 14px;
     }
-    .demo-banner__text {
-      font-size: 0.82rem;
+    .demo-sheet__section p,
+    .demo-sheet__list,
+    .demo-sheet__intro {
+      font-size: 0.84rem;
+      line-height: 1.78;
     }
   }
 </style>
@@ -997,10 +1097,49 @@
   <a href="https://instagram.com/thephysi_" class="footer-ig" target="_blank">@thephysi_</a>
 </footer>
 
-<div class="demo-banner" role="note" aria-label="Información sobre este sitio de muestra">
-  <p class="demo-banner__label">Sitio de muestra</p>
-  <p class="demo-banner__text">Este sitio es una <strong>muestra</strong>: diseño <strong>completamente original</strong>, editable al <strong>100&nbsp;%</strong> y <strong>hecho con código</strong> (HTML, CSS y JavaScript). Sin plantillas genéricas ni armadores cerrados.</p>
-</div>
+<section class="demo-sheet" aria-labelledby="demo-sheet-heading" role="note">
+  <div class="demo-sheet__panel">
+    <header class="demo-sheet__masthead">
+      <h2 id="demo-sheet-heading">Web PHY·SI — muestra</h2>
+    </header>
+
+    <div class="demo-sheet__section">
+      <h3>Naturaleza del proyecto</h3>
+      <p>Lo que ves es una <strong>maqueta funcional</strong>: piezas en vivo (bitácora, video, navegación) armadas sobre la identidad sensible de PHY·SI y materiales públicos (<a href="https://instagram.com/thephysi_" target="_blank" rel="noopener noreferrer">Instagram @thephysi_</a>). Está desarrollada <strong>sin plantillas cerradas</strong>, con código a medida (<strong>HTML, CSS y JavaScript</strong>).</p>
+      <p>Es <strong>100&nbsp;% modificable</strong>: desde tipografía y paleta hasta estructura, textos y microinteracciones. La idea es que esta base <strong>acompañe la visión de quien ejecuta PHY·SI</strong> hasta alinear marca, público y entorno digital. Como referencia práctica para la muestra, <strong>solo está pensada para pantalla de computadora</strong> en este momento.</p>
+    </div>
+
+    <div class="demo-sheet__section">
+      <h3>Potencial de transformación</h3>
+      <p class="demo-sheet__intro">No estamos anclados en esta pantalla: la web está pensada desde cero. Podemos:</p>
+      <ul class="demo-sheet__list">
+        <li><strong>Reordenar o rediseñar secciones</strong> (hero, talleres, contacto, bitácora…) según la prioridad con la que quieras contar PHY·SI.</li>
+        <li><strong>Afinar tono visual y ritmo editorial</strong> para que cada scroll refleje clima organicidad / espiral sin perder ligereza.</li>
+        <li><strong>Co-crear experiencia</strong>: traducimos ideas operativas (contenidos, calendarios, sensibilidad del espacio) a un código ordenado que se puede seguir evolucionando.</li>
+      </ul>
+    </div>
+
+    <div class="demo-sheet__section">
+      <h3>Compromiso de entrega y soporte</h3>
+      <p class="demo-sheet__intro">Para garantizar que el sitio aterrice donde vos quieras, la propuesta de acompañamiento puede incluir:</p>
+      <ul class="demo-sheet__list">
+        <li><strong>Soporte técnico de adaptación</strong>: ventana inicial de revisión para pulir código, contenidos incrustados y detalles de maquetación.</li>
+        <li><strong>Evolución post-lanzamiento</strong>: tiempo acotado para sumar nuevas secciones o iteraciones después del primer encuentro con el público.</li>
+        <li><strong>Capacitación de gestión</strong>: herramientas y pautas para que el equipo actualice copys, fotos y piezas multimedia con autonomía.</li>
+      </ul>
+      <p class="demo-sheet__footnote">Los alcances temporales exactos los definimos según tus necesidades; lo anterior es una estructura de referencia tipo propuesta profesional.</p>
+    </div>
+
+    <div class="demo-sheet__section">
+      <h3>Inversión orientativa</h3>
+      <p>El paquete de implementación sobre esta base, más personalización profunda y acompañamiento técnico, suele ubicarse como referencia entre <strong>150 y 250&nbsp;USD</strong>, negociable según nivel de función nueva (CMS, newsletter, ecommerce liviano, reservas, etc.).</p>
+    </div>
+
+    <div class="demo-sheet__cta-wrap">
+      <a class="demo-sheet__cta" href="https://github.com/enzo369-htm" target="_blank" rel="noopener noreferrer">Portfolio — Enzo Federico</a>
+    </div>
+  </div>
+</section>
 
 <script>
 (function () {
