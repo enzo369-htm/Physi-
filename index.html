@@ -394,6 +394,35 @@
   }
   .footer-ig:hover { color: var(--crema); }
 
+  /* Cartel muestra — bajo footer */
+  .demo-banner {
+    background: var(--verde);
+    padding: 2rem 4rem 2.65rem;
+    text-align: center;
+    border-top: 1px solid rgba(247,242,234,0.1);
+  }
+  .demo-banner__label {
+    margin: 0 0 0.7rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--tierra);
+  }
+  .demo-banner__text {
+    margin: 0 auto;
+    max-width: 42rem;
+    font-size: 0.875rem;
+    line-height: 1.68;
+    color: rgba(247,242,234,0.9);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+  .demo-banner__text strong {
+    font-weight: 500;
+    color: var(--crema-light);
+  }
+
   /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -629,6 +658,50 @@
     }
   }
 
+  /* Solo escritorio ~12″ o más: desde 1280px de ancho útil (equiv. aprox.; el CSS no mide pulgadas físicas) */
+  .desktop-only-gate {
+    display: none;
+    box-sizing: border-box;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 2rem max(1.25rem, 4vw);
+    text-align: center;
+    background: var(--crema-light);
+    color: var(--texto);
+  }
+  .desktop-only-gate__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 400;
+    color: var(--verde);
+    letter-spacing: 0.06em;
+    max-width: 26rem;
+    line-height: 1.28;
+    margin: 0;
+  }
+  .desktop-only-gate__msg {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--texto-suave);
+    letter-spacing: 0.03em;
+    max-width: 22rem;
+    line-height: 1.55;
+  }
+  @media (max-width: 1279px) {
+    body {
+      overflow: hidden;
+      touch-action: none;
+    }
+    .desktop-only-gate {
+      display: flex;
+    }
+  }
+
   @media (max-width: 960px) {
     .section.nosotros {
       grid-template-columns: minmax(0, 1fr);
@@ -661,10 +734,21 @@
       flex: 0 0 min(90vw, 440px);
       width: min(90vw, 440px);
     }
+    .demo-banner {
+      padding: 1.65rem 1.35rem 2rem;
+    }
+    .demo-banner__text {
+      font-size: 0.82rem;
+    }
   }
 </style>
 </head>
 <body>
+
+<div id="desktop-only-gate" class="desktop-only-gate" role="dialog" aria-modal="true" aria-labelledby="desktop-gate-title">
+  <p id="desktop-gate-title" class="desktop-only-gate__title">PHY·SI está pensado para pantalla de computadora.</p>
+  <p class="desktop-only-gate__msg">Esta web solo se muestra con un ancho de ventana de al menos 1280&nbsp;px (aprox. monitor o notebook de 12&nbsp;pulgadas o más).</p>
+</div>
 
 <nav>
   <a href="#" class="nav-logo">
@@ -912,6 +996,11 @@
   <span class="footer-copy">© 2026 PHY-SI · Todos los derechos reservados</span>
   <a href="https://instagram.com/thephysi_" class="footer-ig" target="_blank">@thephysi_</a>
 </footer>
+
+<div class="demo-banner" role="note" aria-label="Información sobre este sitio de muestra">
+  <p class="demo-banner__label">Sitio de muestra</p>
+  <p class="demo-banner__text">Este sitio es una <strong>muestra</strong>: diseño <strong>completamente original</strong>, editable al <strong>100&nbsp;%</strong> y <strong>hecho con código</strong> (HTML, CSS y JavaScript). Sin plantillas genéricas ni armadores cerrados.</p>
+</div>
 
 <script>
 (function () {
