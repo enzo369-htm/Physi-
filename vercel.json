@@ -1,0 +1,3 @@
+{
+  "rewrites": [{ "source": "/", "destination": "/physi_website.html" }]
+}

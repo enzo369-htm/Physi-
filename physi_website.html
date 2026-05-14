@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHY-SI</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1a3d2b;
+    --verde-med: #2d5a3d;
+    --crema: #f0e8d8;
+    --crema-light: #f7f2ea;
+    --tierra: #c4a882;
+    --texto: #1a1a18;
+    --texto-suave: #4a4a42;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  section[id]:not(#nosotros) { scroll-margin-top: 5.5rem; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--crema-light);
+    color: var(--texto);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(240,232,216,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(26,61,43,0.08);
+    transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  nav.nav-hidden {
+    transform: translateY(-100%);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 400; letter-spacing: 0.1em;
+    color: var(--verde); text-decoration: none;
+  }
+  .nav-logo-img {
+    width: 32px; height: 32px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--texto-suave);
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--verde); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    background: var(--verde);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 6rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-left::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    border: 80px solid rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .hero-left::after {
+    content: '';
+    position: absolute; bottom: -80px; left: -80px;
+    width: 280px; height: 280px;
+    border: 50px solid rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .hero-tag {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--tierra); margin-bottom: 2rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--crema); margin-bottom: 2rem;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--tierra);
+  }
+  .hero-desc {
+    font-size: 0.9rem; line-height: 1.8;
+    color: rgba(240,232,216,0.65);
+    max-width: 380px; margin-bottom: 3rem;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    border: 1px solid var(--tierra);
+    color: var(--crema);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.15em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.35s;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background: var(--tierra); color: var(--verde);
+  }
+  .hero-right {
+    background: var(--crema);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    min-height: min(100vh, 100%);
+  }
+  .hero-content-right {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    padding: 0 2rem calc(clamp(7rem, 28vh, 14rem) - 55px);
+    box-sizing: border-box;
+    max-width: none;
+  }
+  .hero-right-logo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    display: block;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+  }
+  .manifesto-text {
+    position: relative;
+    z-index: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--texto);
+    max-width: 340px;
+    margin: 0;
+    text-shadow:
+      0 0 1.25rem rgba(247, 242, 234, 0.95),
+      0 0 0.35rem rgba(247, 242, 234, 0.9),
+      0 1px 2px rgba(255, 255, 255, 0.85);
+  }
+  .manifesto-text em { color: var(--verde); font-style: italic; }
+
+  /* SECTION HEADER */
+  .section {
+    padding: 8rem 4rem;
+  }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--tierra); margin-bottom: 1.5rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 300; line-height: 1.15;
+    color: var(--verde); max-width: 600px;
+  }
+  .section-title em { font-style: italic; }
+
+  /* NOSOTROS — pantalla completa vertical: sin bandas; 50/50; video pegado arriba/abajo/derecha */
+  .section.nosotros {
+    padding: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+    background: var(--crema-light);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(100vh, auto);
+    gap: 0;
+    align-items: stretch;
+  }
+  .nosotros-copy {
+    align-self: center;
+    justify-self: center;
+    min-width: 0;
+    width: min(36rem, calc(100% - 3rem));
+    max-width: 36rem;
+    box-sizing: border-box;
+    padding: clamp(4rem, 10vh, 7rem) clamp(1rem, 4vw, 2.5rem);
+  }
+  .nosotros-body {
+    font-size: 0.95rem; line-height: 1.9;
+    color: var(--texto-suave); margin-top: 2rem;
+  }
+  .nosotros-body p { margin-bottom: 1.2rem; }
+  .nosotros-media {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    min-height: 100vh;
+    background: #2a2419;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  .nosotros-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .nosotros-spiral-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .nosotros-spiral-overlay svg {
+    width: clamp(72px, 11vw, 130px);
+    height: auto;
+    opacity: 0.38;
+  }
+
+  /* OFERTAS */
+  .ofertas {
+    background: var(--verde);
+    color: var(--crema);
+  }
+  .ofertas .section-title { color: var(--crema); }
+  .ofertas .section-label { color: var(--tierra); }
+  .ofertas-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 4rem;
+  }
+  .oferta-item {
+    border-top: 1px solid rgba(240,232,216,0.2);
+    padding: 2.5rem 0;
+    transition: border-color 0.3s;
+    cursor: pointer;
+  }
+  .oferta-item:hover { border-color: var(--tierra); }
+  .oferta-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem; font-style: italic;
+    color: var(--tierra); margin-bottom: 1rem;
+  }
+  .oferta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 300;
+    color: var(--crema); margin-bottom: 1rem; line-height: 1.2;
+  }
+  .oferta-desc {
+    font-size: 0.85rem; line-height: 1.8;
+    color: rgba(240,232,216,0.6);
+  }
+  .oferta-arrow {
+    display: inline-block; margin-top: 1.5rem;
+    font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--tierra);
+    transition: letter-spacing 0.3s;
+  }
+  .oferta-item:hover .oferta-arrow { letter-spacing: 0.25em; }
+
+  /* ESPIRAL SECTION */
+  .espiral-section {
+    background: var(--crema);
+    text-align: center;
+    padding: 10rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .espiral-bg-deco {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px; height: 600px; opacity: 0.04;
+  }
+  .espiral-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300; line-height: 1.5;
+    color: var(--verde); max-width: 800px;
+    margin: 0 auto 3rem;
+    position: relative;
+  }
+  .espiral-quote em { font-style: italic; color: var(--tierra); }
+  .espiral-source {
+    font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--texto-suave);
+  }
+
+  /* CONTACTO */
+  .contacto {
+    background: var(--crema-light);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; min-height: 60vh;
+  }
+  .contacto-left {
+    background: var(--verde);
+    padding: 7rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .contacto-left .section-title { color: var(--crema); max-width: 400px; }
+  .contacto-left .section-label { color: var(--tierra); }
+  .contacto-body {
+    font-size: 0.9rem; line-height: 1.8;
+    color: rgba(240,232,216,0.65);
+    margin-top: 1.5rem; max-width: 380px;
+  }
+  .contacto-links {
+    margin-top: 3rem; display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .contacto-link {
+    font-size: 0.85rem; letter-spacing: 0.08em;
+    color: var(--tierra); text-decoration: none;
+    display: flex; align-items: center; gap: 0.75rem;
+    transition: color 0.3s;
+  }
+  .contacto-link:hover { color: var(--crema); }
+  .contacto-right {
+    padding: 7rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .form-group { margin-bottom: 2rem; }
+  .form-label {
+    display: block;
+    font-size: 0.72rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--texto-suave);
+    margin-bottom: 0.75rem;
+  }
+  .form-input, .form-textarea {
+    width: 100%; background: transparent;
+    border: none; border-bottom: 1px solid rgba(26,61,43,0.2);
+    padding: 0.75rem 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; color: var(--texto);
+    outline: none; transition: border-color 0.3s;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--verde); }
+  .form-textarea { resize: none; height: 100px; }
+  .btn-submit {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--verde);
+    color: var(--crema);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.15em;
+    text-transform: uppercase; border: none;
+    cursor: pointer; transition: all 0.35s;
+  }
+  .btn-submit:hover { background: var(--tierra); }
+
+  /* FOOTER */
+  footer {
+    background: var(--texto);
+    padding: 3rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--crema); letter-spacing: 0.1em;
+  }
+  .footer-copy {
+    font-size: 0.75rem; color: rgba(240,232,216,0.4); letter-spacing: 0.08em;
+  }
+  .footer-ig {
+    font-size: 0.75rem; letter-spacing: 0.12em;
+    color: var(--tierra); text-decoration: none; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .footer-ig:hover { color: var(--crema); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tag { animation: fadeUp 0.8s 0.2s both; }
+  .hero-title { animation: fadeUp 0.8s 0.4s both; }
+  .hero-desc { animation: fadeUp 0.8s 0.6s both; }
+  .btn-primary { animation: fadeUp 0.8s 0.8s both; }
+  .hero-content-right { animation: fadeUp 0.8s 0.5s both; }
+
+  @keyframes slowRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .espiral-bg-deco { animation: slowRotate 60s linear infinite; }
+
+  /* BITÁCORA — carrusel horizontal (scroll-snap) + modal de lectura */
+  .section.bitacora-section {
+    padding: 0;
+    min-height: 100vh;
+    background: var(--crema-light);
+    border-top: 1px solid rgba(26,61,43,0.08);
+    box-sizing: border-box;
+  }
+  .bitacora-hero {
+    padding: 5.5rem 4rem 1.25rem;
+    max-width: 48rem;
+  }
+  .bitacora-hero .section-title { max-width: none; }
+  .bitacora-lead {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--texto-suave);
+    margin-top: 1.25rem;
+    max-width: 34rem;
+  }
+  .bitacora-rail-wrap {
+    position: relative;
+    padding-bottom: 2.5rem;
+  }
+  .bitacora-rail {
+    display: flex;
+    flex-direction: row;
+    gap: 1.15rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(26,61,43,0.25) transparent;
+    padding: 0.35rem 4rem 1.25rem;
+    box-sizing: border-box;
+  }
+  .bitacora-rail::-webkit-scrollbar { height: 6px; }
+  .bitacora-rail::-webkit-scrollbar-thumb {
+    background: rgba(26,61,43,0.22);
+    border-radius: 3px;
+  }
+  .bitacora-slide {
+    flex: 0 0 min(88vw, 520px);
+    width: min(88vw, 520px);
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    background: var(--crema);
+    border: 1px solid rgba(26,61,43,0.12);
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    transition: border-color 0.28s, box-shadow 0.28s;
+    overflow: hidden;
+  }
+  .bitacora-slide:hover,
+  .bitacora-slide:focus-visible {
+    border-color: rgba(26,61,43,0.3);
+    outline: none;
+    box-shadow: 0 12px 36px rgba(26,61,43,0.1);
+  }
+  .bitacora-slide__thumb {
+    display: none;
+    aspect-ratio: 16 / 10;
+    background: var(--crema-light);
+    border-bottom: 1px solid rgba(26,61,43,0.08);
+    overflow: hidden;
+  }
+  .bitacora-slide--has-thumb .bitacora-slide__thumb {
+    display: block;
+  }
+  .bitacora-slide__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .bitacora-slide__body {
+    padding: 1.5rem 1.6rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+  .bitacora-slide__date {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tierra);
+    margin-bottom: 0.65rem;
+  }
+  .bitacora-slide__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.45rem, 3vw, 1.85rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--verde);
+    margin-bottom: 0.85rem;
+  }
+  .bitacora-slide__excerpt {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--texto-suave);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+  }
+  .bitacora-slide__cta {
+    margin-top: 1.1rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--verde);
+    border-top: 1px solid rgba(26,61,43,0.1);
+    padding-top: 1rem;
+  }
+  .bitacora-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    padding: 0;
+    background: rgba(247, 242, 234, 0.94);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+  .bitacora-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .bitacora-modal__panel {
+    position: relative;
+    width: 100%;
+    max-width: 38rem;
+    margin: 0 auto;
+    padding: 5.5rem 2rem 4rem;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+  .bitacora-modal__close {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    z-index: 201;
+    background: transparent;
+    border: 1px solid rgba(26,61,43,0.35);
+    color: var(--verde);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.1rem;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .bitacora-modal__close:hover {
+    background: var(--verde);
+    color: var(--crema);
+    border-color: var(--verde);
+  }
+  .bitacora-modal__date {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tierra);
+    margin-bottom: 1rem;
+  }
+  .bitacora-modal__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4.2vw, 2.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--verde);
+    margin-bottom: 2rem;
+  }
+  .bitacora-modal__title em { font-style: italic; color: var(--tierra); }
+  .bitacora-modal__body {
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: var(--texto-suave);
+  }
+  .bitacora-modal__body p { margin-bottom: 1.25rem; }
+  .bitacora-modal__body p:last-child { margin-bottom: 0; }
+  .bitacora-modal__figure {
+    margin: 2rem 0 2.25rem;
+    border: 1px solid rgba(26,61,43,0.12);
+    background: var(--crema);
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto-suave);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bitacora-rail {
+      scroll-snap-type: x proximity;
+    }
+    .bitacora-slide {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .section.nosotros {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto auto;
+      min-height: 0;
+    }
+    .nosotros-copy {
+      padding: 5rem 1.5rem 2.5rem;
+    }
+    .nosotros-media {
+      min-height: min(62vh, 560px);
+      height: min(62vh, 560px);
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
+    }
+    .nosotros-video {
+      object-position: center center;
+    }
+    .bitacora-hero {
+      padding: 5rem 1.25rem 1rem;
+    }
+    .bitacora-rail {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      scroll-padding-inline: 1rem;
+      gap: 0.85rem;
+    }
+    .bitacora-slide {
+      flex: 0 0 min(90vw, 440px);
+      width: min(90vw, 440px);
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <img class="nav-logo-img" src="public/logo.jpeg" alt="PHY-SI" width="32" height="32" decoding="async">
+    phy·si
+  </a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">El espacio</a></li>
+    <li><a href="#ofertas">Oferta</a></li>
+    <li><a href="#bitacora">Bitácora</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="https://instagram.com/thephysi_" target="_blank">@thephysi_</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Naturaleza · Movimiento · Presencia</p>
+    <h1 class="hero-title">
+      Un espacio<br><em>vivo</em><br>para habitar<br>lo que sentís
+    </h1>
+    <p class="hero-desc">
+      PHY-SI nace y renace desde una necesidad. De expresión. De movimiento. De habitar lo que sentimos. Un espacio para sentir, crear y habitarse con más verdad.
+    </p>
+    <a href="#ofertas" class="btn-primary">Conocer el espacio</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-content-right">
+      <img class="hero-right-logo" src="public/logo.jpeg" alt="PHY-SI" decoding="async">
+      <p class="manifesto-text">
+        Un movimiento que no avanza en línea recta,<br>
+        sino que nos lleva hacia adentro<br>
+        para volver a salir <em>distintos.</em>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" class="section nosotros">
+  <div class="nosotros-copy">
+    <p class="section-label">El espacio</p>
+    <h2 class="section-title">Naturaleza entendida como <em>proceso interno</em></h2>
+    <div class="nosotros-body">
+      <p>PHY-SI se inspira en el principio del espiral: la forma más presente en la naturaleza, en lo vivo, en lo que crece y se transforma.</p>
+      <p>Un recorrido continuo, guiado por la intuición, hecho de procesos, de cambios graduales, de evolución. Un viaje que se repite, pero nunca de la misma forma.</p>
+      <p>Cada vuelta trae más claridad, más fuerza, más conciencia. El espiral no busca llegar... invita a atravesar.</p>
+    </div>
+  </div>
+  <div class="nosotros-media">
+    <video class="nosotros-video" src="public/video.mp4" autoplay muted loop playsinline preload="auto" aria-label="Video sobre el espacio PHY-SI">
+      Tu navegador no admite reproducción de video.
+    </video>
+    <div class="nosotros-spiral-overlay" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="90" stroke="rgba(255,255,255,0.65)" stroke-width="2.5"/>
+        <path d="M100 100 C100 75 75 50 50 60 C25 70 20 95 30 115 C40 135 65 150 95 150 C125 150 155 130 155 100 C155 70 130 40 100 40 C65 40 35 70 35 100" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M100 100 C100 85 87 72 74 76 C61 80 57 92 62 103 C67 114 80 122 95 122" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTAS -->
+<section id="ofertas" class="section ofertas">
+  <p class="section-label">Lo que ofrecemos</p>
+  <h2 class="section-title">Espacios para <em>crecer</em></h2>
+  <div class="ofertas-grid">
+    <div class="oferta-item">
+      <p class="oferta-num">01</p>
+      <h3 class="oferta-title">Talleres de movimiento</h3>
+      <p class="oferta-desc">Clases grupales que integran cuerpo, intuición y presencia. Para todos los niveles, desde todos los cuerpos.</p>
+      <span class="oferta-arrow">Explorar →</span>
+    </div>
+    <div class="oferta-item">
+      <p class="oferta-num">02</p>
+      <h3 class="oferta-title">Círculos de creación</h3>
+      <p class="oferta-desc">Encuentros donde la expresión artística se convierte en herramienta de autoconocimiento y conexión colectiva.</p>
+      <span class="oferta-arrow">Explorar →</span>
+    </div>
+    <div class="oferta-item">
+      <p class="oferta-num">03</p>
+      <h3 class="oferta-title">Sesiones individuales</h3>
+      <p class="oferta-desc">Acompañamiento personalizado para quienes buscan profundizar en su proceso de transformación.</p>
+      <span class="oferta-arrow">Explorar →</span>
+    </div>
+    <div class="oferta-item">
+      <p class="oferta-num">04</p>
+      <h3 class="oferta-title">Retiros</h3>
+      <p class="oferta-desc">Experiencias inmersivas en la naturaleza. Un tiempo para parar, sentir y volver a uno mismo.</p>
+      <span class="oferta-arrow">Explorar →</span>
+    </div>
+    <div class="oferta-item">
+      <p class="oferta-num">05</p>
+      <h3 class="oferta-title">Formaciones</h3>
+      <p class="oferta-desc">Programas para quienes desean aprender a acompañar a otros desde este enfoque integral y vivencial.</p>
+      <span class="oferta-arrow">Explorar →</span>
+    </div>
+    <div class="oferta-item">
+      <p class="oferta-num">06</p>
+      <h3 class="oferta-title">Comunidad online</h3>
+      <p class="oferta-desc">Contenido, prácticas y conexión para llevar PHY-SI a tu cotidiano, desde donde estés.</p>
+      <span class="oferta-arrow">Explorar →</span>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="espiral-section">
+  <svg class="espiral-bg-deco" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M300 300 C300 220 220 140 140 160 C60 180 40 260 60 320 C80 380 160 430 270 430 C380 430 460 360 460 270 C460 180 380 100 290 100 C200 100 110 180 110 270 C110 360 190 440 290 440" stroke="#1a3d2b" stroke-width="12" fill="none"/>
+  </svg>
+  <blockquote class="espiral-quote">
+    "El espiral no busca llegar...<br>
+    <em>invita a atravesar.</em>"
+  </blockquote>
+  <p class="espiral-source">— Manifiesto PHY-SI</p>
+</section>
+
+<!-- BITÁCORA — carrusel (maqueta); las entradas reales irán con el sistema después -->
+<section id="bitacora" class="section bitacora-section" aria-label="Bitácora de expresión">
+  <header class="bitacora-hero">
+    <p class="section-label">Desde adentro</p>
+    <h2 class="section-title">Bitácora de <em>expresión</em></h2>
+    <p class="bitacora-lead">
+      Deslizá horizontalmente para recorrer entradas de ejemplo. Cada tarjeta muestra fecha, título y extracto; al abrir leés el texto completo. Más adelante estas piezas se alimentarán desde tu propio flujo de publicación.
+    </p>
+  </header>
+  <div class="bitacora-rail-wrap">
+    <div class="bitacora-rail" role="list">
+      <button type="button" class="bitacora-slide" data-bitacora-id="e1" role="listitem" aria-label="Abrir entrada: Una vuelta más">
+        <div class="bitacora-slide__body">
+          <p class="bitacora-slide__date">Martes, 4 de marzo de 2026</p>
+          <h3 class="bitacora-slide__title">Una vuelta más</h3>
+          <p class="bitacora-slide__excerpt">Una vuelta más, y otra. No es repetición: es profundidad. El cuerpo recordó algo que la cabeza todavía no nombra.</p>
+          <span class="bitacora-slide__cta">Leer entrada</span>
+        </div>
+      </button>
+      <button type="button" class="bitacora-slide" data-bitacora-id="e2" role="listitem" aria-label="Abrir entrada: Carta al silencio">
+        <div class="bitacora-slide__body">
+          <p class="bitacora-slide__date">Domingo, 2 de marzo de 2026</p>
+          <h3 class="bitacora-slide__title">Carta al silencio</h3>
+          <p class="bitacora-slide__excerpt">Hoy no busqué palabras. Solo espacio. Y en el espacio apareció el movimiento, suave, como agua.</p>
+          <span class="bitacora-slide__cta">Leer entrada</span>
+        </div>
+      </button>
+      <button type="button" class="bitacora-slide bitacora-slide--has-thumb" data-bitacora-id="e3" role="listitem" aria-label="Abrir entrada: Lo que dejé ir">
+        <div class="bitacora-slide__thumb">
+          <img src="public/logo.jpeg" alt="">
+        </div>
+        <div class="bitacora-slide__body">
+          <p class="bitacora-slide__date">Jueves, 27 de febrero de 2026</p>
+          <h3 class="bitacora-slide__title">Lo que dejé ir</h3>
+          <p class="bitacora-slide__excerpt">Lo que dejé ir ya no pesa. Lo que sostengo, lo elijo. El espiral me enseña a soltar sin desaparecer.</p>
+          <span class="bitacora-slide__cta">Leer entrada</span>
+        </div>
+      </button>
+      <button type="button" class="bitacora-slide" data-bitacora-id="e4" role="listitem" aria-label="Abrir entrada: Después del taller">
+        <div class="bitacora-slide__body">
+          <p class="bitacora-slide__date">Lunes, 24 de febrero de 2026</p>
+          <h3 class="bitacora-slide__title">Después del taller</h3>
+          <p class="bitacora-slide__excerpt">Quedó un humo bueno en el pecho. Ganas de anotar poco y sentir mucho.</p>
+          <span class="bitacora-slide__cta">Leer entrada</span>
+        </div>
+      </button>
+      <button type="button" class="bitacora-slide bitacora-slide--has-thumb" data-bitacora-id="e5" role="listitem" aria-label="Abrir entrada: Primavera adentro">
+        <div class="bitacora-slide__thumb">
+          <img src="public/logo.jpeg" alt="">
+        </div>
+        <div class="bitacora-slide__body">
+          <p class="bitacora-slide__date">Miércoles, 19 de febrero de 2026</p>
+          <h3 class="bitacora-slide__title">Primavera adentro</h3>
+          <p class="bitacora-slide__excerpt">Brotan preguntas, no respuestas. Camino más lento. Miro más largo.</p>
+          <span class="bitacora-slide__cta">Leer entrada</span>
+        </div>
+      </button>
+      <button type="button" class="bitacora-slide" data-bitacora-id="e6" role="listitem" aria-label="Abrir entrada: Espiral y error">
+        <div class="bitacora-slide__body">
+          <p class="bitacora-slide__date">Viernes, 14 de febrero de 2026</p>
+          <h3 class="bitacora-slide__title">Espiral y error</h3>
+          <p class="bitacora-slide__excerpt">Errar también es camino. La curva corrige sin juzgar. Vuelvo a empezar distinta, no desde cero.</p>
+          <span class="bitacora-slide__cta">Leer entrada</span>
+        </div>
+      </button>
+      <button type="button" class="bitacora-slide" data-bitacora-id="e8" role="listitem" aria-label="Abrir entrada: Gracias">
+        <div class="bitacora-slide__body">
+          <p class="bitacora-slide__date">Sábado, 8 de febrero de 2026</p>
+          <h3 class="bitacora-slide__title">Gracias</h3>
+          <p class="bitacora-slide__excerpt">Gracias a quien acompaña sin querer arreglarme. Gracias al proceso que no tiene prisa.</p>
+          <span class="bitacora-slide__cta">Leer entrada</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div id="bitacora-modal" class="bitacora-modal" role="dialog" aria-modal="true" aria-labelledby="bitacora-modal-title" hidden>
+  <button type="button" class="bitacora-modal__close" id="bitacora-modal-close" aria-label="Cerrar entrada">Cerrar</button>
+  <div class="bitacora-modal__panel">
+    <p class="bitacora-modal__date" id="bitacora-modal-date"></p>
+    <h2 class="bitacora-modal__title" id="bitacora-modal-title"></h2>
+    <div class="bitacora-modal__figure" id="bitacora-modal-figure" hidden>Fotografía de la entrada (ejemplo de maquetación)</div>
+    <div class="bitacora-modal__body" id="bitacora-modal-body"></div>
+  </div>
+</div>
+
+<!-- CONTACTO -->
+<section id="contacto" class="contacto">
+  <div class="contacto-left">
+    <p class="section-label">Contacto</p>
+    <h2 class="section-title">¿Querés <em>entrar</em> al espiral?</h2>
+    <p class="contacto-body">
+      Escribinos y contanos desde dónde llegás. Cada proceso es único, y queremos conocer el tuyo.
+    </p>
+    <div class="contacto-links">
+      <a href="https://instagram.com/thephysi_" class="contacto-link" target="_blank">
+        <span>↗</span> @thephysi_
+      </a>
+      <a href="mailto:hola@thephysi.com" class="contacto-link">
+        <span>→</span> hola@thephysi.com
+      </a>
+    </div>
+  </div>
+  <div class="contacto-right">
+    <div class="form-group">
+      <label class="form-label">Tu nombre</label>
+      <input type="text" class="form-input" placeholder="¿Cómo te llamás?">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-input" placeholder="tu@email.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Mensaje</label>
+      <textarea class="form-textarea" placeholder="Contanos qué te movió a escribir..."></textarea>
+    </div>
+    <button class="btn-submit">Enviar mensaje</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">phy·si</span>
+  <span class="footer-copy">© 2026 PHY-SI · Todos los derechos reservados</span>
+  <a href="https://instagram.com/thephysi_" class="footer-ig" target="_blank">@thephysi_</a>
+</footer>
+
+<script>
+(function () {
+  var ENTRIES = {
+    e1: {
+      date: 'Martes, 4 de marzo de 2026',
+      title: 'Una vuelta <em>más</em>',
+      body: '<p>Una vuelta más, y otra. No es repetición: es profundidad. El cuerpo recordó algo que la cabeza todavía no nombra.</p><p>Hoy la bitácora no pide claridad. Pide presencia. Dejo que el texto sea corto y el silencio, largo.</p>',
+      hasImage: false
+    },
+    e2: {
+      date: 'Domingo, 2 de marzo de 2026',
+      title: 'Carta al <em>silencio</em>',
+      body: '<p>Carta al silencio: hoy no busqué palabras. Solo espacio. Y en el espacio apareció el movimiento, suave, como agua.</p><p>Phy·si me recuerda que no tengo que producirme para existir. Alcanza con moverme, con sentir.</p>',
+      hasImage: false
+    },
+    e3: {
+      date: 'Jueves, 27 de febrero de 2026',
+      title: 'Lo que dejé <em>ir</em>',
+      body: '<p>Lo que dejé ir ya no pesa. Lo que sostengo, lo elijo. El espiral me enseña a soltar sin desaparecer.</p><p>Cuando el miedo aprieta, vuelvo al piso. Palmas. Respiración. La curva que me sostiene.</p>',
+      hasImage: true
+    },
+    e4: {
+      date: 'Lunes, 24 de febrero de 2026',
+      title: 'Después del <em>taller</em>',
+      body: '<p>Después del taller quedó un humo bueno en el pecho. Ganas de anotar poco y sentir mucho.</p><p>Las palabras de otrxs resonaron como espejos. No como mandatos. Eso cambia todo.</p>',
+      hasImage: false
+    },
+    e5: {
+      date: 'Miércoles, 19 de febrero de 2026',
+      title: 'Primavera <em>adentro</em>',
+      body: '<p>Primavera adentro: brotan preguntas, no respuestas. Camino más lento. Miro más largo.</p><p>La bitácora pública que estamos diseñando tendrá fotos, manchas, borradores. Hoy es borrador hermoso.</p>',
+      hasImage: true
+    },
+    e6: {
+      date: 'Viernes, 14 de febrero de 2026',
+      title: 'Espiral y <em>error</em>',
+      body: '<p>Errar también es camino. La curva corrige sin juzgar. Vuelvo a empezar distinta, no desde cero.</p><p>Registrar el error con ternura es un acto político mínimo y profundo.</p>',
+      hasImage: false
+    },
+    e8: {
+      date: 'Sábado, 8 de febrero de 2026',
+      title: '<em>Gracias</em>',
+      body: '<p>Gracias a quien acompaña sin querer arreglarme. Gracias al proceso que no tiene prisa.</p><p>Que esta pantalla sea un refugio. Que lo que escribas sirva primero a vos.</p>',
+      hasImage: false
+    }
+  };
+
+  var modal = document.getElementById('bitacora-modal');
+  var closeBtn = document.getElementById('bitacora-modal-close');
+  var elDate = document.getElementById('bitacora-modal-date');
+  var elTitle = document.getElementById('bitacora-modal-title');
+  var elBody = document.getElementById('bitacora-modal-body');
+  var elFig = document.getElementById('bitacora-modal-figure');
+  var lastFocusEl = null;
+
+  function openModal(id) {
+    var data = ENTRIES[id];
+    if (!data || !modal) return;
+    lastFocusEl = document.activeElement;
+    elDate.textContent = data.date;
+    elTitle.innerHTML = data.title;
+    elBody.innerHTML = data.body;
+    if (data.hasImage) {
+      elFig.hidden = false;
+    } else {
+      elFig.hidden = true;
+    }
+    modal.hidden = false;
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocusEl && typeof lastFocusEl.focus === 'function') {
+      try { lastFocusEl.focus(); } catch (err) {}
+    }
+    lastFocusEl = null;
+  }
+
+  document.querySelectorAll('.bitacora-rail [data-bitacora-id]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.getAttribute('data-bitacora-id');
+      if (id) openModal(id);
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  if (modal) {
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+  var lastY = window.scrollY;
+  var ticking = false;
+  var deltaThreshold = 6;
+  function onScroll() {
+    var y = window.scrollY;
+    var d = y - lastY;
+    if (y < 72) {
+      nav.classList.remove('nav-hidden');
+    } else if (d > deltaThreshold) {
+      nav.classList.add('nav-hidden');
+    } else if (d < -deltaThreshold) {
+      nav.classList.remove('nav-hidden');
+    }
+    lastY = y;
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(onScroll);
+    }
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
